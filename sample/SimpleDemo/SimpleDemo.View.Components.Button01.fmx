@@ -1,0 +1,47 @@
+object ComponentButton01: TComponentButton01
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 480
+  ClientWidth = 640
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object Layout1: TLayout
+    Position.X = 232.000000000000000000
+    Position.Y = 120.000000000000000000
+    Size.Width = 121.000000000000000000
+    Size.Height = 81.000000000000000000
+    Size.PlatformDefault = False
+    object Line1: TLine
+      Align = Bottom
+      LineType = Bottom
+      Position.Y = 80.000000000000000000
+      Size.Width = 121.000000000000000000
+      Size.Height = 1.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Thickness = 5.000000000000000000
+    end
+    object Label1: TLabel
+      Align = Contents
+      StyledSettings = [Family, Style, FontColor]
+      Size.Width = 121.000000000000000000
+      Size.Height = 81.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 20.000000000000000000
+      TextSettings.HorzAlign = Center
+      Text = 'Button'
+    end
+    object SpeedButton1: TSpeedButton
+      Align = Contents
+      Opacity = 0.000000000000000000
+      Size.Width = 121.000000000000000000
+      Size.Height = 81.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'SpeedButton1'
+      OnClick = SpeedButton1Click
+    end
+  end
+end

@@ -1,0 +1,57 @@
+package Router4Delphi;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  xmlrtl,
+  fmx,
+  soaprtl,
+  dbrtl,
+  DbxCommonDriver,
+  FireDAC,
+  FireDACCommonDriver,
+  FireDACCommon;
+
+contains
+  Router4D.History in 'src\Router4D.History.pas',
+  Router4D.Interfaces in 'src\Router4D.Interfaces.pas',
+  Router4D.Link in 'src\Router4D.Link.pas',
+  Router4D in 'src\Router4D.pas',
+  Router4D.Props in 'src\Router4D.Props.pas',
+  Router4D.Switch in 'src\Router4D.Switch.pas',
+  Router4D.Utils in 'src\Router4D.Utils.pas',
+  DuckListU in 'src\DuckListU.pas',
+  EventBus.Core in 'src\EventBus.Core.pas',
+  EventBus.Subscribers in 'src\EventBus.Subscribers.pas',
+  ObjectsMappers in 'src\ObjectsMappers.pas',
+  RTTIUtilsU in 'src\RTTIUtilsU.pas',
+  Router4D.Sidebar in 'src\Router4D.Sidebar.pas',
+  Router4D.Render in 'src\Router4D.Render.pas';
+
+end.

@@ -1,0 +1,74 @@
+object PageCadastros: TPageCadastros
+  Left = 0
+  Top = 0
+  Caption = 'Form3'
+  ClientHeight = 480
+  ClientWidth = 640
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object Layout1: TLayout
+    Align = Client
+    Size.Width = 640.000000000000000000
+    Size.Height = 480.000000000000000000
+    Size.PlatformDefault = False
+    object Layout2: TLayout
+      Align = Left
+      Size.Width = 177.000000000000000000
+      Size.Height = 480.000000000000000000
+      Size.PlatformDefault = False
+      Visible = False
+      object Rectangle1: TRectangle
+        Align = Contents
+        Fill.Color = xFF36414A
+        Size.Width = 177.000000000000000000
+        Size.Height = 480.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+      end
+    end
+    object Layout3: TLayout
+      Align = Client
+      Size.Width = 640.000000000000000000
+      Size.Height = 399.000000000000000000
+      Size.PlatformDefault = False
+      object Label1: TLabel
+        Align = Contents
+        StyledSettings = [Family, Style, FontColor]
+        Size.Width = 640.000000000000000000
+        Size.Height = 399.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 30.000000000000000000
+        TextSettings.HorzAlign = Center
+        Text = 'Cadastros'
+      end
+      object Button1: TButton
+        Anchors = []
+        Position.X = 243.682922363281300000
+        Position.Y = 215.990631103515600000
+        Size.Width = 145.000000000000000000
+        Size.Height = 41.000000000000000000
+        Size.PlatformDefault = False
+        Text = 'Voltar para Home'
+        OnClick = Button1Click
+      end
+      object Edit1: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        Anchors = []
+        Position.X = 243.682922363281300000
+        Position.Y = 257.240631103515600000
+        Size.Width = 145.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+      end
+    end
+    object Layout4: TLayout
+      Align = Top
+      Size.Width = 640.000000000000000000
+      Size.Height = 81.000000000000000000
+      Size.PlatformDefault = False
+    end
+  end
+end
