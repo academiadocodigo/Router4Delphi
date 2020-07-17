@@ -7,7 +7,7 @@ O Router4Delphi tem o objetivo de facilitar a chamada de telas e embed de Layout
 
 Basta registrar no Library Path do seu Delphi o caminho da pasta SRC da Biblioteca
 
-## Primeiros Passos
+## Primeiros Passos - Tutorial
 
 Para utilizar o Router4Delphi para criar suas rotas, você deve realizar a uses do Router4D.
 
@@ -223,3 +223,61 @@ Se você deseja deixar isso mais organizado, eu sugiro inclusive que você crie 
 Dessa forma damos fim a um monte de referencias cruzadas e acoplamento entre as telas.
 
 
+## RECURSOS
+
+## RENDER
+
+```delphi
+TRouter4D.Render<T>.SetElement(MainContainer, IndexContainer);
+```
+
+O Render é a primeira ação a ser feita para trabalhar com o Router4D, pois nele você irá configurar os container main e index.
+
+MainContainer = O container onde os formularios serão embedados
+
+IndexContainer = O container principal da aplicação (util quando você tem mais de um tipo de layout na aplicação)
+
+## SWITCH
+
+```delphi
+TRouter4D.Switch.Router(aPath : String; aRouter : TPersistentClass);
+```
+No Switch você registra suas rotas, passando o nome da rota e o objeto que seja aberto quando essa rota for acionada.
+
+```delphi
+TRouter4D.Switch.Router(aPath : String; aRouter : TPersistentClass; aSidebarKey : String = 'SBIndex'; isVisible : Boolean = True);
+```
+
+No Swith existem alguns parametros a mais que já possuem valores default
+
+aSidebarKey: Este parametro permite você separar as rotas por categoria para a criação de menus dinâmicos com a classe SideBar, vou explicar mais abaixo sobre ela.
+
+isVisible: Permite você ocultar a rota na geração dinamica dos menus com a SideBar.
+
+## LINK
+
+```delphi
+
+TRouter4D.Link.&To ( aPatch : String; aComponent : TFMXObject );
+
+TRouter4D.Link.&To ( aPatch : String);
+    
+TRouter4D.Link.&To ( aPatch : String; aProps : TProps; aKey : String = '');
+    
+```
+
+Os links são as ações para acionar as rotas que você registrou no Switch
+
+Existem 4 formas de chamar os links:
+
+TRouter4D.Link.&To ( aPatch : String);
+
+Passando apenas o Path da Rota, dessa forma o formulario associado a rota será embedado dentro do MainContainer que você definiu no Render
+
+TRouter4D.Link.&To ( aPatch : String; aComponent : TFMXObject );
+
+Passando o Path e o Component, ele irá embedar o formulario registrado no path dentro do componente que você está passando no parametro.
+
+TRouter4D.Link.&To ( aPatch : String; aProps : TProps; aKey : String = '');
+
+Você pode acionar uma rota passando Props, que são valores que o seu formulário irá receber no momento do Render, vou explicar mais abaixo como isso funciona em detalhes, mas isso é util por exemplo quando você deseja enviar um ID para uma tela realizar uma consulta no banco e ser carregada com os dados.
