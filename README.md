@@ -318,3 +318,43 @@ Para chamar um link passando um Props você utiliza o seguinte código:
 TRouter4D.Link.&To('Cadastros', TProps.Create.PropString('Olá').Key('telacadastro'));
 ```
 Passando no Link o objeto TProps com uma PropString e uma Chave para que a tela que vai receber tenha certeza que aquela props foi enviada para ela.
+
+## SideBar
+
+Com as rotas registradas você pode criar um menu automático das rotas registradas de forma dinâmica, basta registrar uma nova rota que a mesma estará disponível em todos os seus menus.
+
+```delphi
+TRouter4D
+    .SideBar
+      .MainContainer(Layout5)
+      .LinkContainer(Layout4)
+      .FontSize(15)
+      .FontColor(4294967295)
+      .ItemHeigth(60)
+    .RenderToListBox;
+```
+
+No exemplo acima estamos gerando um menu em formato de listbox dentro do Layout5 e todos os links clicados nesse menu serão renderizados no Layout4, se você não passar o LinkContainer o mesmo será renderizado no MainContainer informado no Render do Router4D.
+
+Você ainda pode criar menus baseados em rotas categorizadas, basta no registro da rota você informar a categoria que a rota pertence
+
+```delphi
+TRouter4D.Switch.Router('Clientes', TPagePrincipal, 'cadastros');
+  TRouter4D.Switch.Router('Fornecedores', TSubCadastros, 'cadastros');
+  TRouter4D.Switch.Router('Produtos', TSubCadastros, 'cadastros');
+```
+
+Dessa forma criamos 3 rotas da categoria cadastro, para gerar um menu apenas com esses link basta informar isso na construção da SideBar.
+
+```delphi
+TRouter4D
+    .SideBar
+      .Name('cadastros')
+      .MainContainer(Layout5)
+      .LinkContainer(Layout4)
+      .FontSize(15)
+      .FontColor(4294967295)
+      .ItemHeigth(60)
+    .RenderToListBox;
+```
+
