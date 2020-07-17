@@ -223,9 +223,7 @@ Se você deseja deixar isso mais organizado, eu sugiro inclusive que você crie 
 Dessa forma damos fim a um monte de referencias cruzadas e acoplamento entre as telas.
 
 
-## RECURSOS
-
-## RENDER
+## RECURSOS - RENDER
 
 ```delphi
 TRouter4D.Render<T>.SetElement(MainContainer, IndexContainer);
@@ -268,16 +266,55 @@ TRouter4D.Link.&To ( aPatch : String; aProps : TProps; aKey : String = '');
 
 Os links são as ações para acionar as rotas que você registrou no Switch
 
-Existem 4 formas de chamar os links:
+Existem 3 formas de chamar os links:
 
+```delphi
 TRouter4D.Link.&To ( aPatch : String);
-
+```
 Passando apenas o Path da Rota, dessa forma o formulario associado a rota será embedado dentro do MainContainer que você definiu no Render
 
+```delphi
 TRouter4D.Link.&To ( aPatch : String; aComponent : TFMXObject );
+```
 
 Passando o Path e o Component, ele irá embedar o formulario registrado no path dentro do componente que você está passando no parametro.
 
+```delphi
 TRouter4D.Link.&To ( aPatch : String; aProps : TProps; aKey : String = '');
+```
 
 Você pode acionar uma rota passando Props, que são valores que o seu formulário irá receber no momento do Render, vou explicar mais abaixo como isso funciona em detalhes, mas isso é util por exemplo quando você deseja enviar um ID para uma tela realizar uma consulta no banco e ser carregada com os dados.
+
+## PROPS
+
+```delphi
+TRouter4D.Link.&To ( aPatch : String; aProps : TProps; aKey : String = '');
+```
+
+A Biblioteca Router4D incopora o Delphi Event Bus para realizar ações de Pub e Sub, com isso você pode registrar seus formularios para receber eventos na chamada dos links.
+
+Para receber uma Props você precisa adicionar a uses Router4D.Props no seu formulario e implementar o seguinte método com o atributo [Subscribe]
+
+```delphi
+[Subscribe]
+procedure Props ( aValue : TProps);
+```
+
+e implementa-lo 
+
+```delphi
+procedure TPageCadastros.Props(aValue: TProps);
+begin
+    if aValue.Key = 'telacadastro' then
+        Label1.Text := aValue.PropString;
+  aValue.Free;
+end;
+```
+Dessa forma seu formulario está preparado por exemplo para receber uma string passada na chamada do link.
+
+Para chamar um link passando um Props você utiliza o seguinte código:
+
+```delphi
+TRouter4D.Link.&To('Cadastros', TProps.Create.PropString('Olá').Key('telacadastro'));
+```
+Passando no Link o objeto TProps com uma PropString e uma Chave para que a tela que vai receber tenha certeza que aquela props foi enviada para ela.
