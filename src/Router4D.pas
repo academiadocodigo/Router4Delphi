@@ -1,5 +1,7 @@
 unit Router4D;
 
+{$I Router4D.inc}
+
 interface
 
 uses
@@ -8,7 +10,11 @@ uses
   System.Rtti,
   System.TypInfo,
   SysUtils,
+  {$IFDEF HAS_FMX}
   FMX.Types,
+  {$ELSE}
+  Vcl.ExtCtrls,
+  {$ENDIF}
   Router4D.Interfaces,
   Router4D.History,
   Router4D.Render,

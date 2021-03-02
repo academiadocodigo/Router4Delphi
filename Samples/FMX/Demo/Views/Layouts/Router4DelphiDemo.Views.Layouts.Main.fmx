@@ -1,0 +1,56 @@
+object MainLayout: TMainLayout
+  Left = 0
+  Top = 0
+  Caption = 'Form3'
+  ClientHeight = 577
+  ClientWidth = 860
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object LayoutIndex: TLayout
+    Align = Contents
+    Size.Width = 860.000000000000000000
+    Size.Height = 577.000000000000000000
+    Size.PlatformDefault = False
+    object Layout1: TLayout
+      Align = Top
+      Size.Width = 860.000000000000000000
+      Size.Height = 65.000000000000000000
+      Size.PlatformDefault = False
+      object Rectangle1: TRectangle
+        Align = Contents
+        Fill.Color = xFF2D2F32
+        Size.Width = 860.000000000000000000
+        Size.Height = 65.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+      end
+      object Label1: TLabel
+        Align = Left
+        StyledSettings = [Family, Style]
+        Margins.Left = 15.000000000000000000
+        Position.X = 15.000000000000000000
+        Size.Width = 554.000000000000000000
+        Size.Height = 65.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 25.000000000000000000
+        TextSettings.FontColor = claWhite
+        Text = 'Layout Principal'
+      end
+    end
+    object Layout2: TLayout
+      Align = Left
+      Position.Y = 65.000000000000000000
+      Size.Width = 225.000000000000000000
+      Size.Height = 512.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Layout3: TLayout
+      Align = Client
+      Size.Width = 635.000000000000000000
+      Size.Height = 512.000000000000000000
+      Size.PlatformDefault = False
+    end
+  end
+end

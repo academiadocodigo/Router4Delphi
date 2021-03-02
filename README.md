@@ -1,7 +1,7 @@
 # Router4Delphi
-Framework para Criação de Rotas de Telas para FMX
+Framework para Criação de Rotas de Telas para FMX e VCL
 
-O Router4Delphi tem o objetivo de facilitar a chamada de telas e embed de Layouts em aplicações FMX, reduzindo o acoplamento das telas de dando mais dinâmismo e práticidade na construção de interfaces ricas em Delphi
+O Router4Delphi tem o objetivo de facilitar a chamada de telas e embed de Layouts em aplicações FMX, e Panels em aplicações VCL, reduzindo o acoplamento das telas de dando mais dinâmismo e práticidade na construção de interfaces ricas em Delphi
 
 ## Instalação
 
@@ -13,13 +13,15 @@ Para utilizar o Router4Delphi para criar suas rotas, você deve realizar a uses 
 
 ## Criação de uma Tela para Roteamento
 
-Para que o sistema  de Rotas funcione você deve criar um novo formulário FMX e Implementar a Interface iRouter4DComponent ela pertence a unit Router4D.Interfaces portanto a mesma deve ser incluida nas suas Units.
+Para que o sistema  de Rotas funcione você deve criar um novo formulário FMX ou VCL e Implementar a Interface iRouter4DComponent ela pertence a unit Router4D.Interfaces portanto a mesma deve ser incluida nas suas Units.
 
-Toda a construção das telas baseadas em rotas utilizar TLayouts para embedar as chamadas das telas, dessa forma é preciso que sua nova tela tenha um TLayout principal e todos os demais componentes devem ser incluídos dentro desse layout.
+Toda a construção das telas baseadas em rotas utilizar TLayouts e TPanels para embedar as chamadas das telas, dessa forma é preciso que sua nova tela tenha um TLayout ou um TPanel principal e todos os demais componentes devem ser incluídos dentro desse layout ou panel.
 
 A Implementação da Interface iRouter4DComponent requer a declaração de dois métodos ( Render e UnRender ), o Render é chamado sempre que uma rota aciona a tela, e o UnRender sempre que ela saí de exibição.
 
 Abaixo o Código de uma tela simples implementando a interface iRouter4DComponent e pronta para ser utilizada.
+
+#### Exemplo em FMX
 
 Crie um Novo Formulario na sua Aplicação, inclua nele um Layout alinhado AlClient e implemente os métodos como abaixo.
 
@@ -357,4 +359,3 @@ TRouter4D
       .ItemHeigth(60)
     .RenderToListBox;
 ```
-

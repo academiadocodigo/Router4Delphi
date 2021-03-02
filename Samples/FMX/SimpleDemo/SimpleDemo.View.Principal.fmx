@@ -1,0 +1,71 @@
+object Form2: TForm2
+  Left = 0
+  Top = 0
+  Caption = 'Form2'
+  ClientHeight = 586
+  ClientWidth = 875
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+  object Layout1: TLayout
+    Align = Client
+    Size.Width = 875.000000000000000000
+    Size.Height = 586.000000000000000000
+    Size.PlatformDefault = False
+    object Layout2: TLayout
+      Align = Top
+      Size.Width = 875.000000000000000000
+      Size.Height = 50.000000000000000000
+      Size.PlatformDefault = False
+      object Rectangle1: TRectangle
+        Align = Contents
+        Fill.Color = xFF36414A
+        Size.Width = 875.000000000000000000
+        Size.Height = 50.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+      end
+      object Label1: TLabel
+        Align = Contents
+        StyledSettings = [Family, Style]
+        Margins.Right = 10.000000000000000000
+        Size.Width = 865.000000000000000000
+        Size.Height = 50.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 15.000000000000000000
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Trailing
+        Text = 'Router4D - SimpleDemo'
+      end
+    end
+    object Layout4: TLayout
+      Align = Client
+      Size.Width = 705.000000000000000000
+      Size.Height = 536.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Layout3: TLayout
+      Align = Left
+      Position.Y = 50.000000000000000000
+      Size.Width = 170.000000000000000000
+      Size.Height = 536.000000000000000000
+      Size.PlatformDefault = False
+      object Rectangle2: TRectangle
+        Align = Contents
+        Fill.Color = xFF2D2F32
+        Size.Width = 170.000000000000000000
+        Size.Height = 536.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+      end
+      object Layout5: TLayout
+        Align = Client
+        Size.Width = 170.000000000000000000
+        Size.Height = 536.000000000000000000
+        Size.PlatformDefault = False
+      end
+    end
+  end
+end

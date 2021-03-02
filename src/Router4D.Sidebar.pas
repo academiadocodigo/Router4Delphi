@@ -6,41 +6,41 @@ uses
   Classes,
   SysUtils,
   FMX.Types,
+  FMX.ListBox,
+  FMX.SearchBox,
+  FMX.Layouts,
   Router4D.Interfaces,
-   System.UITypes;
+  System.UITypes;
 
 type
   TRouter4DSidebar = class(TInterfacedObject, iRouter4DSidebar)
     private
       FName : String;
       FMainContainer : TFMXObject;
+      FLinkContainer : TFMXObject;
+      FAnimation : TProc<TFMXObject>;
       FFontSize : Integer;
       FFontColor : TAlphaColor;
       FItemHeigth : Integer;
-      FLinkContainer : TFMXObject;
-      FAnimation : TProc<TFMXObject>;
     public
       constructor Create;
       destructor Destroy; override;
       class function New : iRouter4DSidebar;
       function Animation ( aAnimation : TProc<TFMXObject> ) : iRouter4DSidebar;
-      function Name ( aValue : String ) : iRouter4DSidebar; overload;
       function MainContainer ( aValue : TFMXObject ) : iRouter4DSidebar; overload;
-      function Name  : String; overload;
       function MainContainer  : TFMXObject; overload;
+      function LinkContainer ( aValue : TFMXObject ) : iRouter4DSidebar;
+      function RenderToListBox : iRouter4DSidebar;
+      function Name ( aValue : String ) : iRouter4DSidebar; overload;
+      function Name  : String; overload;
       function FontSize ( aValue : Integer ) : iRouter4DSidebar;
       function FontColor ( aValue : TAlphaColor ) : iRouter4DSidebar;
       function ItemHeigth ( aValue : Integer ) : iRouter4DSidebar;
-      function LinkContainer ( aValue : TFMXObject ) : iRouter4DSidebar;
-      function RenderToListBox : iRouter4DSidebar;
   end;
 
 implementation
 
 uses
-  FMX.ListBox,
-  FMX.SearchBox,
-  FMX.Layouts,
   Router4D,
   Router4D.History,
   Router4D.Utils;
@@ -52,36 +52,6 @@ function TRouter4DSidebar.Animation(
 begin
   Result := Self;
   FAnimation := aAnimation;
-end;
-
-constructor TRouter4DSidebar.Create;
-begin
-  FName := 'SBIndex';
-  FLinkContainer := Router4DHistory.MainRouter;
-end;
-
-destructor TRouter4DSidebar.Destroy;
-begin
-
-  inherited;
-end;
-
-function TRouter4DSidebar.FontColor(aValue: TAlphaColor): iRouter4DSidebar;
-begin
-  Result := Self;
-  FFontColor := aValue;
-end;
-
-function TRouter4DSidebar.FontSize(aValue: Integer): iRouter4DSidebar;
-begin
-  Result := Self;
-  FFontSize := aValue;
-end;
-
-function TRouter4DSidebar.ItemHeigth(aValue: Integer): iRouter4DSidebar;
-begin
-  Result := Self;
-  FItemHeigth := aValue;
 end;
 
 function TRouter4DSidebar.LinkContainer(aValue: TFMXObject): iRouter4DSidebar;
@@ -101,38 +71,24 @@ begin
   Result := FMainContainer;
 end;
 
-function TRouter4DSidebar.Name(aValue: String): iRouter4DSidebar;
-begin
-  Result := Self;
-  FName := aValue;
-end;
-
-function TRouter4DSidebar.Name: String;
-begin
-  Result := FName;
-end;
-
-class function TRouter4DSidebar.New: iRouter4DSidebar;
-begin
-    Result := Self.Create;
-end;
-
 function TRouter4DSidebar.RenderToListBox: iRouter4DSidebar;
 var
   aListBox : TListBox;
   aListBoxItem : TListBoxItem;
-  aItem : TCachePersistent;
   AListBoxSearch : TSearchBox;
+  aItem : TCachePersistent;
 begin
   aListBox := TListBox.Create(FMainContainer);
   aListBox.Align := TAlignLayout.Client;
-  aListBox.ItemHeight := FItemHeigth;
+
   aListBox.StyleLookup := 'transparentlistboxstyle';
 
   aListBox.BeginUpdate;
 
   AListBoxSearch := TSearchBox.Create(aListBox);
   AListBoxSearch.Height := FItemHeigth - 25;
+  aListBox.ItemHeight := FItemHeigth;
+
   aListBox.AddObject(AListBoxSearch);
 
   for aItem in Router4DHistory.RoutersListPersistent.Values do
@@ -177,6 +133,52 @@ begin
     );
 
   FMainContainer.AddObject(aListBox);
+end;
+
+constructor TRouter4DSidebar.Create;
+begin
+  FName := 'SBIndex';
+  FLinkContainer := Router4DHistory.MainRouter;
+end;
+
+destructor TRouter4DSidebar.Destroy;
+begin
+
+  inherited;
+end;
+
+function TRouter4DSidebar.FontColor(aValue: TAlphaColor): iRouter4DSidebar;
+begin
+  Result := Self;
+  FFontColor := aValue;
+end;
+
+function TRouter4DSidebar.FontSize(aValue: Integer): iRouter4DSidebar;
+begin
+  Result := Self;
+  FFontSize := aValue;
+end;
+
+function TRouter4DSidebar.ItemHeigth(aValue: Integer): iRouter4DSidebar;
+begin
+  Result := Self;
+  FItemHeigth := aValue;
+end;
+
+function TRouter4DSidebar.Name(aValue: String): iRouter4DSidebar;
+begin
+  Result := Self;
+  FName := aValue;
+end;
+
+function TRouter4DSidebar.Name: String;
+begin
+  Result := FName;
+end;
+
+class function TRouter4DSidebar.New: iRouter4DSidebar;
+begin
+    Result := Self.Create;
 end;
 
 end.

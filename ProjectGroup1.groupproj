@@ -1,0 +1,72 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{7038A3EC-BD85-4AA8-B65E-783D12D02F7F}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Router4Delphi.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Samples\VCL\Router.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Samples\FMX\SimpleDemo\SimpleDemo.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Samples\FMX\Demo\Router4DelphiDemo.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Router4Delphi">
+        <MSBuild Projects="Router4Delphi.dproj"/>
+    </Target>
+    <Target Name="Router4Delphi:Clean">
+        <MSBuild Projects="Router4Delphi.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Router4Delphi:Make">
+        <MSBuild Projects="Router4Delphi.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Router">
+        <MSBuild Projects="Samples\VCL\Router.dproj"/>
+    </Target>
+    <Target Name="Router:Clean">
+        <MSBuild Projects="Samples\VCL\Router.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Router:Make">
+        <MSBuild Projects="Samples\VCL\Router.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="SimpleDemo">
+        <MSBuild Projects="Samples\FMX\SimpleDemo\SimpleDemo.dproj"/>
+    </Target>
+    <Target Name="SimpleDemo:Clean">
+        <MSBuild Projects="Samples\FMX\SimpleDemo\SimpleDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SimpleDemo:Make">
+        <MSBuild Projects="Samples\FMX\SimpleDemo\SimpleDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Router4DelphiDemo">
+        <MSBuild Projects="Samples\FMX\Demo\Router4DelphiDemo.dproj"/>
+    </Target>
+    <Target Name="Router4DelphiDemo:Clean">
+        <MSBuild Projects="Samples\FMX\Demo\Router4DelphiDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Router4DelphiDemo:Make">
+        <MSBuild Projects="Samples\FMX\Demo\Router4DelphiDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Router4Delphi;Router;SimpleDemo;Router4DelphiDemo"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Router4Delphi:Clean;Router:Clean;SimpleDemo:Clean;Router4DelphiDemo:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Router4Delphi:Make;Router:Make;SimpleDemo:Make;Router4DelphiDemo:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

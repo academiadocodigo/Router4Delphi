@@ -1,14 +1,21 @@
 unit Router4D.History;
 
+{$I Router4D.inc}
+
 interface
 
 uses
   Classes,
   SysUtils,
+  {$IFDEF HAS_FMX}
   FMX.Forms,
+  FMX.Types,
+  {$ELSE}
+  Vcl.Forms,
+  Vcl.ExtCtrls,
+  {$ENDIF}
   System.Generics.Collections,
   Router4D.Interfaces,
-  FMX.Types,
   Router4D.Props;
 
 type
@@ -22,29 +29,50 @@ type
   TRouter4DHistory = class
     private
       FListCache : TObjectDictionary<String, TObject>;
+      {$IFDEF HAS_FMX}
       FListCacheContainer : TObjectDictionary<String, TFMXObject>;
-      FListCache2 : TDictionary<String, TCachePersistent>;
       FMainRouter : TFMXObject;
       FIndexRouter : TFMXObject;
+      {$ELSE}
+      FListCacheContainer : TObjectDictionary<String, TPanel>;
+      FMainRouter : TPanel;
+      FIndexRouter : TPanel;
+      {$ENDIF}
+      FListCache2 : TDictionary<String, TCachePersistent>;
       FInstanteObject : iRouter4DComponent;
+      FListCacheOrder : TList<String>;
+      FIndexCache : Integer;
       procedure CreateInstancePersistent( aPath : String);
+      procedure CacheKeyNotify(Sender: TObject; const Key: string; Action: TCollectionNotification);
     public
       constructor Create;
       destructor Destroy; override;
+      {$IFDEF HAS_FMX}
       function MainRouter ( aValue : TFMXObject ) : TRouter4DHistory; overload;
       function MainRouter : TFMXObject; overload;
       function IndexRouter ( aValue : TFMXObject ) : TRouter4DHistory; overload;
       function IndexRouter : TFMXObject; overload;
+      function AddHistoryConteiner ( aKey : String; aObject : TFMXObject) : TRouter4DHistory; overload;
+      function GetHistoryContainer ( aKey : String ) : TFMXObject;
+      {$ELSE}
+      function MainRouter ( aValue : TPanel ) : TRouter4DHistory; overload;
+      function MainRouter : TPanel; overload;
+      function IndexRouter ( aValue : TPanel ) : TRouter4DHistory; overload;
+      function IndexRouter : TPanel; overload;
+      function AddHistoryConteiner ( aKey : String; aObject : TPanel) : TRouter4DHistory; overload;
+      function GetHistoryContainer ( aKey : String ) : TPanel;
+      {$ENDIF}
       function AddHistory ( aKey : String; aObject : TObject ) : iRouter4DComponent; overload;
       function AddHistory ( aKey : String; aObject : TPersistentClass ) : iRouter4DComponent; overload;
       function AddHistory ( aKey : String; aObject : TPersistentClass; aSBKey : String; isVisible : Boolean ) : iRouter4DComponent; overload;
-      function AddHistoryConteiner ( aKey : String; aObject : TFMXObject) : TRouter4DHistory; overload;
-      function GetHistoryContainer ( aKey : String ) : TFMXObject;
       function RemoveHistory ( aKey : String ) : TRouter4DHistory;
       function GetHistory ( aKey : String ) : iRouter4DComponent;
       function RoutersList : TDictionary<String, TObject>;
       function RoutersListPersistent : TDictionary<String, TCachePersistent>;
       function InstanteObject : iRouter4DComponent;
+      function GoBack : String;
+      function BreadCrumb(aDelimiter: char = '/') : String;
+      function IndexCache : Integer;
   end;
 
 var
@@ -53,6 +81,111 @@ var
 implementation
 
 { TRouter4DHistory }
+
+{$IFDEF HAS_FMX}
+function TRouter4DHistory.MainRouter(aValue: TFMXObject): TRouter4DHistory;
+begin
+  Result := Self;
+  FMainRouter := aValue;
+end;
+
+function TRouter4DHistory.MainRouter: TFMXObject;
+begin
+  Result := FMainRouter;
+end;
+
+function TRouter4DHistory.IndexRouter(aValue: TFMXObject): TRouter4DHistory;
+begin
+  Result := Self;
+  FIndexRouter := aValue;
+end;
+
+function TRouter4DHistory.IndexRouter: TFMXObject;
+begin
+  Result := FIndexRouter;
+end;
+
+function TRouter4DHistory.AddHistoryConteiner( aKey : String; aObject : TFMXObject) : TRouter4DHistory;
+var
+  auxObject : TFMXObject;
+begin
+  Result := Self;
+  if not FListCacheContainer.TryGetValue(aKey, auxObject) then
+    FListCacheContainer.TryAdd(aKey, aObject);
+end;
+
+function TRouter4DHistory.GetHistoryContainer(aKey: String): TFMXObject;
+begin
+  FListCacheContainer.TryGetValue(aKey, Result);
+end;
+{$ELSE}
+function TRouter4DHistory.MainRouter(aValue: TPanel): TRouter4DHistory;
+begin
+  Result := Self;
+  FMainRouter := aValue;
+end;
+
+function TRouter4DHistory.MainRouter: TPanel;
+begin
+  Result := FMainRouter;
+end;
+
+function TRouter4DHistory.IndexRouter(aValue: TPanel): TRouter4DHistory;
+begin
+  Result := Self;
+  FIndexRouter := aValue;
+end;
+
+function TRouter4DHistory.IndexRouter: TPanel;
+begin
+  Result := FIndexRouter;
+end;
+
+function TRouter4DHistory.AddHistoryConteiner( aKey : String; aObject : TPanel) : TRouter4DHistory;
+var
+  auxObject : TPanel;
+begin
+  Result := Self;
+  if not FListCacheContainer.TryGetValue(aKey, auxObject) then
+    FListCacheContainer.TryAdd(aKey, aObject);
+end;
+
+function TRouter4DHistory.GetHistoryContainer(aKey: String): TPanel;
+begin
+  FListCacheContainer.TryGetValue(aKey, Result);
+end;
+
+{$ENDIF}
+
+function TRouter4DHistory.IndexCache: Integer;
+begin
+  Result := Self.FIndexCache;
+end;
+
+function TRouter4DHistory.BreadCrumb(aDelimiter: char): String;
+var
+  i : integer;
+begin
+  Result := '';
+
+ if Self.FIndexCache = -1 then
+    Exit;
+
+ Result := Self.FListCacheOrder[Self.FIndexCache];
+
+ for i := Self.FIndexCache-1 downto 0 do
+ begin
+    Result := Self.FListCacheOrder[i] + ADelimiter + Result;
+ end;
+end;
+
+function TRouter4DHistory.GoBack: String;
+begin
+  if Self.FIndexCache > 0 then
+    Dec(Self.FIndexCache);
+
+ Result := Self.FListCacheOrder[Self.FIndexCache];
+end;
 
 function TRouter4DHistory.AddHistory( aKey : String; aObject : TObject ) : iRouter4DComponent;
 var
@@ -79,9 +212,6 @@ function TRouter4DHistory.AddHistory(aKey: String;
 var
   CachePersistent : TCachePersistent;
 begin
-   //if not Supports(aObject, iRouter4DComponent, Result) then
-    //raise Exception.Create('Form not Implement iRouter4DelphiComponent Interface');
-
   CachePersistent.FPatch := aKey;
   CachePersistent.FisVisible := True;
   CachePersistent.FPersistentClass := aObject;
@@ -103,20 +233,36 @@ begin
   try FListCache2.TryAdd(aKey, CachePersistent); except end;
 end;
 
-function TRouter4DHistory.AddHistoryConteiner( aKey : String; aObject : TFMXObject) : TRouter4DHistory;
-var
-  auxObject : TFMXObject;
+procedure TRouter4DHistory.CacheKeyNotify(Sender: TObject; const Key: string;
+  Action: TCollectionNotification);
 begin
-  Result := Self;
-  if not FListCacheContainer.TryGetValue(aKey, auxObject) then
-    FListCacheContainer.TryAdd(aKey, aObject);
+  inherited;
+
+  case Action of
+   cnAdded:
+   begin
+      Self.FListCacheOrder.Add(Key);
+      Self.FIndexCache := Self.FListCacheOrder.Count-1;
+   end;
+
+   cnRemoved:
+   begin
+      Self.FListCacheOrder.Remove(Key);
+      Self.FIndexCache := Self.FListCacheOrder.Count-1;
+   end;
+  end;
+
 end;
 
 constructor TRouter4DHistory.Create;
 begin
   FListCache :=  TObjectDictionary<String, TObject>.Create;
   FListCache2 := TDictionary<String, TCachePersistent>.Create;
+  {$IFDEF HAS_FMX}
   FListCacheContainer := TObjectDictionary<String, TFMXObject>.Create;
+  {$ELSE}
+  FListCacheContainer := TObjectDictionary<String, TPanel>.Create;
+  {$ENDIF}
 end;
 
 procedure TRouter4DHistory.CreateInstancePersistent( aPath : String);
@@ -160,30 +306,9 @@ begin
   FInstanteObject := Result;
 end;
 
-function TRouter4DHistory.GetHistoryContainer(aKey: String): TFMXObject;
-begin
-  FListCacheContainer.TryGetValue(aKey, Result);
-end;
-
-function TRouter4DHistory.IndexRouter: TFMXObject;
-begin
-  Result := FIndexRouter;
-end;
-
 function TRouter4DHistory.InstanteObject: iRouter4DComponent;
 begin
   Result := FInstanteObject;
-end;
-
-function TRouter4DHistory.IndexRouter(aValue: TFMXObject): TRouter4DHistory;
-begin
-  Result := Self;
-  FIndexRouter := aValue;
-end;
-
-function TRouter4DHistory.MainRouter: TFMXObject;
-begin
-  Result := FMainRouter;
 end;
 
 function TRouter4DHistory.RemoveHistory(aKey: String): TRouter4DHistory;
@@ -200,12 +325,6 @@ end;
 function TRouter4DHistory.RoutersListPersistent: TDictionary<String, TCachePersistent>;
 begin
   Result := FListCache2;
-end;
-
-function TRouter4DHistory.MainRouter(aValue: TFMXObject): TRouter4DHistory;
-begin
-  Result := Self;
-  FMainRouter := aValue;
 end;
 
 initialization

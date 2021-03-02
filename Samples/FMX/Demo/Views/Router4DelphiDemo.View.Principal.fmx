@@ -1,0 +1,18 @@
+object ViewPrincipal: TViewPrincipal
+  Left = 0
+  Top = 0
+  Caption = 'Form2'
+  ClientHeight = 612
+  ClientWidth = 925
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object Layout1: TLayout
+    Align = Contents
+    Size.Width = 925.000000000000000000
+    Size.Height = 612.000000000000000000
+    Size.PlatformDefault = False
+  end
+end

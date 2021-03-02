@@ -16,6 +16,8 @@
 
 unit Router4D.Props;
 
+{$I Router4D.inc}
+
 interface
 
 uses

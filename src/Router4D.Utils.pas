@@ -1,5 +1,7 @@
 unit Router4D.Utils;
 
+{$I Router4D.inc}
+
 interface
 
 uses
