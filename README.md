@@ -11,6 +11,10 @@ Basta registrar no Library Path do seu Delphi o caminho da pasta SRC da Bibliote
 
 Para utilizar o Router4Delphi para criar suas rotas, você deve realizar a uses do Router4D.
 
+#### Observação
+
+Dentro da pasta src contém o Router4D.inc, esse arquivo possui a diretiva de compilação para o Firemonkey, com essa diretiva comentada o Framework terá suporte a VCL, e ao descomentar você terá suporte ao FMX.
+
 ## Criação de uma Tela para Roteamento
 
 Para que o sistema  de Rotas funcione você deve criar um novo formulário FMX ou VCL e Implementar a Interface iRouter4DComponent ela pertence a unit Router4D.Interfaces portanto a mesma deve ser incluida nas suas Units.
