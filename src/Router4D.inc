@@ -1,1 +1,1 @@
-{$DEFINE HAS_FMX}
+//{$DEFINE HAS_FMX}

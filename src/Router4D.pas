@@ -30,7 +30,9 @@ type
       class function Render<T : class, constructor> : iRouter4DRender;
       class function Link : iRouter4DLink;
       class function Switch : iRouter4DSwitch;
+      {$IFDEF HAS_FMX}
       class function SideBar : iRouter4DSidebar;
+      {$ENDIF}
   end;
 
 implementation
@@ -82,12 +84,12 @@ begin
           )
       );
 end;
-
+{$IFDEF HAS_FMX}
 class function TRouter4D.SideBar: iRouter4DSidebar;
 begin
   Result := TRouter4DSidebar.New;
 end;
-
+{$ENDIF}
 class function TRouter4D.Switch: iRouter4DSwitch;
 begin
   Result := TRouter4DSwitch.New;

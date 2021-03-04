@@ -1,7 +1,10 @@
 unit Router4D.Sidebar;
 
+{$I Router4D.inc}
+
 interface
 
+{$IFDEF HAS_FMX}
 uses
   Classes,
   SysUtils,
@@ -180,5 +183,8 @@ class function TRouter4DSidebar.New: iRouter4DSidebar;
 begin
     Result := Self.Create;
 end;
+{$ELSE}
+implementation
+{$ENDIF}
 
 end.
