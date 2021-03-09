@@ -25,6 +25,7 @@ type
   public
     { Public declarations }
     function Render : TFMXObject;
+    procedure UnRender;
   end;
 
 var
@@ -42,6 +43,11 @@ function TPageIndex.Render: TFMXObject;
 begin
   Result := Layout1;
   //TRouter4D.Render<TMainLayout>.GetElement(Layout1);
+end;
+
+procedure TPageIndex.UnRender;
+begin
+
 end;
 
 end.

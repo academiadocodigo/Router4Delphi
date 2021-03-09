@@ -31,6 +31,7 @@ type
   public
     { Public declarations }
      function Render : TFMXObject;
+     procedure UnRender;
   end;
 
 var
@@ -56,6 +57,11 @@ begin
   Layout2.AddObject(
     TComponentSideBar.Create(Self).Layout1
   )
+end;
+
+procedure TMainLayout.UnRender;
+begin
+
 end;
 
 end.

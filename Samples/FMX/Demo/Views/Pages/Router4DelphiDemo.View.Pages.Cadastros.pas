@@ -17,6 +17,7 @@ type
   public
     { Public declarations }
     function Render : TFMXObject;
+    procedure UnRender;
   end;
 
 var
@@ -31,6 +32,11 @@ implementation
 function TPageCadastros.Render: TFMXObject;
 begin
   Result := Layout1;
+end;
+
+procedure TPageCadastros.UnRender;
+begin
+
 end;
 
 end.
