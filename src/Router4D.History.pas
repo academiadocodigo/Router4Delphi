@@ -43,7 +43,7 @@ type
       FListCacheOrder : TList<String>;
       FIndexCache : Integer;
       procedure CreateInstancePersistent( aPath : String);
-      procedure CacheKeyNotify(Sender: TObject; const Key: string; Action: TCollectionNotification);
+      //procedure CacheKeyNotify(Sender: TObject; const Key: string; Action: TCollectionNotification);
     public
       constructor Create;
       destructor Destroy; override;
@@ -233,26 +233,26 @@ begin
   try FListCache2.TryAdd(aKey, CachePersistent); except end;
 end;
 
-procedure TRouter4DHistory.CacheKeyNotify(Sender: TObject; const Key: string;
-  Action: TCollectionNotification);
-begin
-  inherited;
-
-  case Action of
-   cnAdded:
-   begin
-      Self.FListCacheOrder.Add(Key);
-      Self.FIndexCache := Self.FListCacheOrder.Count-1;
-   end;
-
-   cnRemoved:
-   begin
-      Self.FListCacheOrder.Remove(Key);
-      Self.FIndexCache := Self.FListCacheOrder.Count-1;
-   end;
-  end;
-
-end;
+//procedure TRouter4DHistory.CacheKeyNotify(Sender: TObject; const Key: string;
+//  Action: TCollectionNotification);
+//begin
+//  inherited;
+//
+//  case Action of
+//   cnAdded:
+//   begin
+//      Self.FListCacheOrder.Add(Key);
+//      Self.FIndexCache := Self.FListCacheOrder.Count-1;
+//   end;
+//
+//   cnRemoved:
+//   begin
+//      Self.FListCacheOrder.Remove(Key);
+//      Self.FIndexCache := Self.FListCacheOrder.Count-1;
+//   end;
+//  end;
+//
+//end;
 
 constructor TRouter4DHistory.Create;
 begin
