@@ -8,6 +8,9 @@
   <img src="https://img.shields.io/github/v/release/bittencourtthulio/Router4Delphi?style=flat-square">
   <img src="https://img.shields.io/github/stars/bittencourtthulio/Router4Delphi?style=flat-square">
   <img src="https://img.shields.io/github/contributors/bittencourtthulio/Router4Delphi?color=orange&style=flat-square">
+   <img src="https://tokei.rs/b1/github/bittencourtthulio/Router4Delphi?color=red&category=lines">
+  <img src="https://tokei.rs/b1/github/bittencourtthulio/Router4Delphi?color=green&category=code">
+  <img src="https://tokei.rs/b1/github/bittencourtthulio/Router4Delphi?color=yellow&category=files">
 </p>
 
 # Router4Delphi
