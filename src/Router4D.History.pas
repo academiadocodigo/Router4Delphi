@@ -111,7 +111,7 @@ var
 begin
   Result := Self;
   if not FListCacheContainer.TryGetValue(aKey, auxObject) then
-    FListCacheContainer.TryAdd(aKey, aObject);
+    FListCacheContainer.Add(aKey, aObject);
 end;
 
 function TRouter4DHistory.GetHistoryContainer(aKey: String): TFMXObject;
@@ -147,7 +147,7 @@ var
 begin
   Result := Self;
   if not FListCacheContainer.TryGetValue(aKey, auxObject) then
-    FListCacheContainer.TryAdd(aKey, aObject);
+    FListCacheContainer.Add(aKey, aObject);
 end;
 
 function TRouter4DHistory.GetHistoryContainer(aKey: String): TPanel;
@@ -203,7 +203,7 @@ begin
       exit;
     end;
 
-  FListCache.TryAdd(aKey, aObject);
+  FListCache.Add(aKey, aObject);
 
 end;
 
@@ -230,29 +230,8 @@ begin
   CachePersistent.FPersistentClass := aObject;
   CachePersistent.FSBKey := aSBKey;
 
-  try FListCache2.TryAdd(aKey, CachePersistent); except end;
+  try FListCache2.Add(aKey, CachePersistent); except end;
 end;
-
-//procedure TRouter4DHistory.CacheKeyNotify(Sender: TObject; const Key: string;
-//  Action: TCollectionNotification);
-//begin
-//  inherited;
-//
-//  case Action of
-//   cnAdded:
-//   begin
-//      Self.FListCacheOrder.Add(Key);
-//      Self.FIndexCache := Self.FListCacheOrder.Count-1;
-//   end;
-//
-//   cnRemoved:
-//   begin
-//      Self.FListCacheOrder.Remove(Key);
-//      Self.FIndexCache := Self.FListCacheOrder.Count-1;
-//   end;
-//  end;
-//
-//end;
 
 constructor TRouter4DHistory.Create;
 begin
