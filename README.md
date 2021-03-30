@@ -2,7 +2,13 @@
   <a href="https://github.com/bittencourtthulio/Router4Delphi/blob/master/assets/logo.fw.png">
     <img alt="router4d" src="https://github.com/bittencourtthulio/Router4Delphi/blob/master/assets/logo.fw.png">
   </a>  
-</p><br>
+</p>
+<br>
+<p align="center">
+  <img src="https://img.shields.io/github/v/release/bittencourtthulio/Router4Delphi?style=flat-square">
+  <img src="https://img.shields.io/github/stars/bittencourtthulio/Router4Delphi?style=flat-square">
+  <img src="https://img.shields.io/github/contributors/bittencourtthulio/Router4Delphi?color=orange&style=flat-square">
+</p>
 
 # Router4Delphi
 Framework para Criação de Rotas de Telas para FMX e VCL
