@@ -22,7 +22,7 @@ type
     FProc: TProc<TObject, String>;
     FAux : String;
   public
-    constructor Create(Owner: TComponent; Proc: TProc<TObject, String>; Aux : String = ''); virtual;
+    constructor Create(Owner: TComponent; Proc: TProc<TObject, String>; Aux : String = ''); reintroduce;
     class function AnonProc2NotifyEvent(Owner: TComponent; Proc: TProc<TObject, String>; Aux : String = ''): TNotifyEvent;
   published
     procedure Event(Sender: TObject);
