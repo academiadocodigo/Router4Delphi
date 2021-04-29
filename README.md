@@ -21,7 +21,10 @@ O Router4Delphi tem o objetivo de facilitar a chamada de telas e embed de Layout
 
 ## Instalação
 
-Basta registrar no Library Path do seu Delphi o caminho da pasta SRC da Biblioteca
+Basta registrar no Library Path do seu Delphi o caminho da pasta SRC da biblioteca, ou se preferir, pode utilizar o [**Boss**](https://github.com/HashLoad/boss) (gerenciador de dependências para Delphi) para realizar a instalação:
+```
+boss install https://github.com/bittencourtthulio/Router4Delphi
+```
 
 ## Primeiros Passos - Tutorial
 
