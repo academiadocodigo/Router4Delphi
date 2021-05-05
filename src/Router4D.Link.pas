@@ -41,9 +41,13 @@ type
     function IndexLink ( aPatch : String ) : iRouter4DLink;
   end;
 
+var
+  Router4DLink : iRouter4DLink;
+
 implementation
 
 { TRouter4DLink }
+
 
 uses Router4D.History;
 
@@ -198,7 +202,13 @@ end;
 
 class function TRouter4DLink.New: iRouter4DLink;
 begin
-  Result := Self.Create;
+  if not Assigned(Router4DLink) then
+    Router4DLink := Self.Create;
+
+  Result := Router4DLink;
 end;
+
+initialization
+  Router4DLink := TRouter4DLink.New;
 
 end.

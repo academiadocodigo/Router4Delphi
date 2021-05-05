@@ -14,6 +14,7 @@ type
     { Private declarations }
   public
     { Public declarations }
+    procedure Animation( aLayout : TFMXObject );
   end;
 
 var
@@ -28,9 +29,16 @@ uses
 
 {$R *.fmx}
 
+procedure TViewPrincipal.Animation(aLayout: TFMXObject);
+begin
+  TLayout(aLayout).Opacity := 0;
+  TLayout(aLayout).AnimateFloat('Opacity', 1, 0.2);
+end;
+
 procedure TViewPrincipal.FormCreate(Sender: TObject);
 begin
   TRouter4D.Render<TMainLayout>.SetElement(Layout1, Layout1);
+  TRouter4D.Link.Animation(Animation);
 end;
 
 end.
