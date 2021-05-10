@@ -63,17 +63,6 @@ object PageCadastros: TPageCadastros
         Size.Height = 25.000000000000000000
         Size.PlatformDefault = False
       end
-      object Label2: TLabel
-        StyledSettings = [Family, Style, FontColor]
-        Position.X = 128.000000000000000000
-        Position.Y = 80.000000000000000000
-        Size.Width = 201.000000000000000000
-        Size.Height = 49.000000000000000000
-        Size.PlatformDefault = False
-        TextSettings.Font.Size = 18.000000000000000000
-        Text = 'Label do Leandro'
-        TabOrder = 0
-      end
     end
     object Layout4: TLayout
       Align = Top

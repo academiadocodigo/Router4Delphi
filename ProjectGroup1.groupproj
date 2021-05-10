@@ -1,12 +1,9 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{7038A3EC-BD85-4AA8-B65E-783D12D02F7F}</ProjectGuid>
+        <ProjectGuid>{9C8C8331-996E-4D6D-AEBB-F1D465788ABF}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
         <Projects Include="Router4Delphi.dproj">
-            <Dependencies/>
-        </Projects>
-        <Projects Include="Samples\VCL\Router.dproj">
             <Dependencies/>
         </Projects>
         <Projects Include="Samples\FMX\SimpleDemo\SimpleDemo.dproj">
@@ -32,15 +29,6 @@
     <Target Name="Router4Delphi:Make">
         <MSBuild Projects="Router4Delphi.dproj" Targets="Make"/>
     </Target>
-    <Target Name="Router">
-        <MSBuild Projects="Samples\VCL\Router.dproj"/>
-    </Target>
-    <Target Name="Router:Clean">
-        <MSBuild Projects="Samples\VCL\Router.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="Router:Make">
-        <MSBuild Projects="Samples\VCL\Router.dproj" Targets="Make"/>
-    </Target>
     <Target Name="SimpleDemo">
         <MSBuild Projects="Samples\FMX\SimpleDemo\SimpleDemo.dproj"/>
     </Target>
@@ -60,13 +48,13 @@
         <MSBuild Projects="Samples\FMX\Demo\Router4DelphiDemo.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="Router4Delphi;Router;SimpleDemo;Router4DelphiDemo"/>
+        <CallTarget Targets="Router4Delphi;SimpleDemo;Router4DelphiDemo"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="Router4Delphi:Clean;Router:Clean;SimpleDemo:Clean;Router4DelphiDemo:Clean"/>
+        <CallTarget Targets="Router4Delphi:Clean;SimpleDemo:Clean;Router4DelphiDemo:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="Router4Delphi:Make;Router:Make;SimpleDemo:Make;Router4DelphiDemo:Make"/>
+        <CallTarget Targets="Router4Delphi:Make;SimpleDemo:Make;Router4DelphiDemo:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

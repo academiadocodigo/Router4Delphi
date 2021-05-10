@@ -30,16 +30,9 @@ uses
 {$R *.fmx}
 
 procedure TViewPrincipal.Animation(aLayout: TFMXObject);
-var
-  aHeigth : Single;
 begin
-  aHeigth := TLayout(aLayout).Height;
-  TLayout(aLayout).Height := 0;
-  TLayout(aLayout).Align := TAlignLayout.None;
-  TLayout(aLayout).AnimateFloat('Height', aHeigth, 0.9);
   TLayout(aLayout).Opacity := 0;
   TLayout(aLayout).AnimateFloat('Opacity', 1, 0.9);
-  //TLayout(aLayout).Align := TAlignLayout.Client;
 end;
 
 procedure TViewPrincipal.FormCreate(Sender: TObject);

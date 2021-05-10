@@ -190,6 +190,7 @@ end;
 function TRouter4DHistory.AddHistory( aKey : String; aObject : TObject ) : iRouter4DComponent;
 var
   mKey : String;
+  vObject : TObject;
 begin
   if not Supports(aObject, iRouter4DComponent, Result) then
     raise Exception.Create('Form not Implement iRouter4DelphiComponent Interface');
@@ -203,7 +204,9 @@ begin
       exit;
     end;
 
-  FListCache.Add(aKey, aObject);
+
+  if not FListCache.TryGetValue(aKey, vObject) then
+    FListCache.Add(aKey, aObject);
 
 end;
 
@@ -211,26 +214,30 @@ function TRouter4DHistory.AddHistory(aKey: String;
   aObject: TPersistentClass): iRouter4DComponent;
 var
   CachePersistent : TCachePersistent;
+  vPesersistentClass : TCachePersistent;
 begin
   CachePersistent.FPatch := aKey;
   CachePersistent.FisVisible := True;
   CachePersistent.FPersistentClass := aObject;
   CachePersistent.FSBKey := 'SBIndex';
 
-  try FListCache2.Add(aKey, CachePersistent); except end;
+  if not FListCache2.TryGetValue(aKey, vPesersistentClass) then
+    FListCache2.Add(aKey, CachePersistent);
 end;
 
 function TRouter4DHistory.AddHistory(aKey: String; aObject: TPersistentClass;
   aSBKey : String; isVisible: Boolean): iRouter4DComponent;
 var
   CachePersistent : TCachePersistent;
+  vPesersistentClass : TCachePersistent;
 begin
   CachePersistent.FPatch := aKey;
   CachePersistent.FisVisible := isVisible;
   CachePersistent.FPersistentClass := aObject;
   CachePersistent.FSBKey := aSBKey;
 
-  try FListCache2.Add(aKey, CachePersistent); except end;
+  if not FListCache2.TryGetValue(aKey, vPesersistentClass) then
+    FListCache2.Add(aKey, CachePersistent);
 end;
 
 constructor TRouter4DHistory.Create;
