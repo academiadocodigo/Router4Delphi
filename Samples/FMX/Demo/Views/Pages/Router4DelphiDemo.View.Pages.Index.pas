@@ -20,6 +20,7 @@ type
   TPageIndex = class(TForm, iRouter4DComponent)
     Layout1: TLayout;
     Label1: TLabel;
+    Button1: TButton;
   private
     { Private declarations }
   public
@@ -35,6 +36,7 @@ implementation
 
 uses
   Router4D,
+  Router4D.History,
   Router4DelphiDemo.Views.Layouts.Main;
 
 {$R *.fmx}

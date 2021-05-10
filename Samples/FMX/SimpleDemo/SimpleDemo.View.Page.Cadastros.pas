@@ -29,6 +29,7 @@ type
     Layout3: TLayout;
     Rectangle1: TRectangle;
     Layout4: TLayout;
+    Label2: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -71,6 +72,9 @@ procedure TPageCadastros.Props(aValue: TProps);
 begin
   if (aValue.PropString <> '') and (aValue.Key = 'TelaCadastro') then
     Label1.Text := aValue.PropString;
+
+  if (aValue.PropInteger <> 1) then
+    Label2.Visible := False;
 
   aValue.Free;
 end;

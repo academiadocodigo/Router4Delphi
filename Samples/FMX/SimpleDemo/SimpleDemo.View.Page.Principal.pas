@@ -52,6 +52,7 @@ begin
         .PropString(
           'Olá Router4D, Seu Cadastro Recebeu as Props'
         )
+        .PropInteger(0)
         .Key('TelaCadastro')
     );
 end;
