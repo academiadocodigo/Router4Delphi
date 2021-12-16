@@ -38,6 +38,7 @@ type
     function &To ( aPatch : String) : iRouter4DLink; overload;
     function &To ( aPatch : String; aProps : TProps; aKey : String = '') : iRouter4DLink; overload;
     function &To ( aPatch : String; aNameContainer : String) : iRouter4DLink; overload;
+    function GoBack : iRouter4DLink;
     function IndexLink ( aPatch : String ) : iRouter4DLink;
   end;
 
@@ -66,6 +67,7 @@ begin
   aComponent
     .AddObject(
       Router4DHistory
+        .addCacheHistory(aPatch)
         .GetHistory(aPatch)
         .Render
     );
@@ -85,6 +87,7 @@ begin
   aComponent
     .AddObject(
       Router4DHistory
+        .addCacheHistory(aPatch)
         .GetHistory(aPatch)
         .Render
     );
@@ -111,6 +114,7 @@ begin
   aContainer
     .AddObject(
       Router4DHistory
+        .addCacheHistory(aPatch)
         .GetHistory(aPatch)
         .Render
     );
@@ -131,6 +135,26 @@ begin
   inherited;
 end;
 
+function TRouter4DLink.GoBack : iRouter4DLink;
+begin
+  Result := Self;
+  {$IFDEF HAS_FMX}
+  Router4DHistory.MainRouter.RemoveObject(0);
+  {$ELSE}
+  Router4DHistory.MainRouter.RemoveObject;
+  {$ENDIF}
+  Router4DHistory.InstanteObject.UnRender;
+  Router4DHistory
+  .MainRouter
+    .AddObject(
+      Router4DHistory
+        .GetHistory(Router4DHistory.GoBack)
+        .Render
+    );
+
+  if Assigned(FAnimation) then
+    FAnimation(Router4DHistory.MainRouter);
+end;
 function TRouter4DLink.IndexLink(aPatch: String): iRouter4DLink;
 begin
   Result := Self;
@@ -166,6 +190,7 @@ begin
   .MainRouter
     .AddObject(
       Router4DHistory
+        .addCacheHistory(aPatch)
         .GetHistory(aPatch)
         .Render
     );
@@ -188,6 +213,7 @@ begin
   .MainRouter
     .AddObject(
       Router4DHistory
+        .addCacheHistory(aPatch)
         .GetHistory(aPatch)
         .Render
     );

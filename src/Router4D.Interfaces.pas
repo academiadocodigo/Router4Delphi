@@ -51,6 +51,7 @@ type
     function &To ( aPatch : String; aProps : TProps; aKey : String = '') : iRouter4DLink; overload;
     function &To ( aPatch : String; aNameContainer : String) : iRouter4DLink; overload;
     function IndexLink ( aPatch : String ) : iRouter4DLink;
+    function GoBack : iRouter4DLink;
   end;
 
   iRouter4DRender = interface

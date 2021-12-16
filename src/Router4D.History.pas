@@ -42,6 +42,7 @@ type
       FInstanteObject : iRouter4DComponent;
       FListCacheOrder : TList<String>;
       FIndexCache : Integer;
+      FMaxCacheHistory : Integer;
       procedure CreateInstancePersistent( aPath : String);
       //procedure CacheKeyNotify(Sender: TObject; const Key: string; Action: TCollectionNotification);
     public
@@ -72,6 +73,7 @@ type
       function InstanteObject : iRouter4DComponent;
       function GoBack : String;
       function BreadCrumb(aDelimiter: char = '/') : String;
+      function addCacheHistory(aKey : String) : TRouter4DHistory;
       function IndexCache : Integer;
   end;
 
@@ -225,6 +227,21 @@ begin
     FListCache2.Add(aKey, CachePersistent);
 end;
 
+function TRouter4DHistory.addCacheHistory(aKey: String): TRouter4DHistory;
+var
+  I: Integer;
+begin
+  Result := Self;
+  for I := Pred(FListCacheOrder.Count) downto Succ(FIndexCache) do
+    FListCacheOrder.Delete(I);
+
+  if FListCacheOrder.Count > FMaxCacheHistory then
+    FListCacheOrder.Delete(0);
+
+  FListCacheOrder.Add(aKey);
+  FIndexCache := Pred(FListCacheOrder.Count);
+end;
+
 function TRouter4DHistory.AddHistory(aKey: String; aObject: TPersistentClass;
   aSBKey : String; isVisible: Boolean): iRouter4DComponent;
 var
@@ -244,6 +261,8 @@ constructor TRouter4DHistory.Create;
 begin
   FListCache :=  TObjectDictionary<String, TObject>.Create;
   FListCache2 := TDictionary<String, TCachePersistent>.Create;
+  FListCacheOrder := TList<String>.Create;
+  FMaxCacheHistory := 10;
   {$IFDEF HAS_FMX}
   FListCacheContainer := TObjectDictionary<String, TFMXObject>.Create;
   {$ELSE}
@@ -275,6 +294,7 @@ begin
   FListCache.Free;
   FListCache2.Free;
   FListCacheContainer.Free;
+  FListCacheOrder.Free;
   inherited;
 end;
 
