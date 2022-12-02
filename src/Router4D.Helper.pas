@@ -30,7 +30,10 @@ begin
 	for lIndex := Self.ControlCount - 1 downto 0 do
   begin
     if (Self.Controls[lIndex] is TForm) then
+    begin
       (Self.Controls[lIndex] as TForm).Close;
+      (Self.Controls[lIndex] as TForm).parent := nil;
+    end;
   end;
 end;
 
