@@ -43,6 +43,7 @@ type
       FListCacheOrder : TList<String>;
       FIndexCache : Integer;
       FMaxCacheHistory : Integer;
+      const MAX_FRAME_COUNT = 25;
       procedure CreateInstancePersistent( aPath : String);
       //procedure CacheKeyNotify(Sender: TObject; const Key: string; Action: TCollectionNotification);
     public
@@ -199,11 +200,11 @@ begin
 
   try GlobalEventBus.RegisterSubscriber(aObject); except end;
 
-  if FListCache.Count > 25 then
+  if FListCache.Count > MAX_FRAME_COUNT then
     for mKey in FListCache.Keys do
     begin
-      FListCache.Remove(aKey);
-      exit;
+      FListCache.Remove(mKey);
+      Break;
     end;
 
 
