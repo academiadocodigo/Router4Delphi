@@ -382,3 +382,6 @@ TRouter4D
       .ItemHeigth(60)
     .RenderToListBox;
 ```
+## Documentação
+[English (en)](https://github.com/academiadocodigo/Router4Delphi/blob/master/README-en.md)<br>
+[Português (ptBR)](https://github.com/academiadocodigo/Router4Delphi/blob/master/README.md)<br>
