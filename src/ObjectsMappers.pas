@@ -1,4 +1,4 @@
-{***************************************************************************}
+﻿{***************************************************************************}
 {                                                                           }
 {                      Delphi MVC Framework                                 }
 {                                                                           }
@@ -1181,7 +1181,13 @@ begin
           if _property.PropertyType.QualifiedName = 'System.SysUtils.TTimeStamp' then
           begin
             ts := _property.GetValue(AObject).AsType<System.SysUtils.TTimeStamp>;
-            JSONObject.AddPair(f, TJSONNumber.Create(TimeStampToMsecs(ts)));
+            {$IFDEF  WIN64}
+              var tm: Int64;
+              tm := Round(TimeStampToMsecs(ts));
+              JSONObject.AddPair(f, TJSONNumber.Create(tm));
+            {$ELSE}}
+              JSONObject.AddPair(f, TJSONNumber.Create(TimeStampToMsecs(ts)));
+            {$ENDIF}
           end;
         end;
       tkClass:
