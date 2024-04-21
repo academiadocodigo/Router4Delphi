@@ -27,7 +27,7 @@ type
       constructor Create;
       destructor Destroy; override;
       class function New : iRouter4D;
-      class function Render<T : class, constructor> : iRouter4DRender;
+      class function Render<T : class, constructor>(initialRoute:string) : iRouter4DRender;
       class function Link : iRouter4DLink;
       class function Switch : iRouter4DSwitch;
       {$IFDEF HAS_FMX}
@@ -65,7 +65,7 @@ begin
   Result := Self.Create;
 end;
 
-class function TRouter4D.Render<T>: iRouter4DRender;
+class function TRouter4D.Render<T>(initialRoute:string): iRouter4DRender;
 begin
   Router4DHistory
     .AddHistory(
@@ -78,6 +78,7 @@ begin
     TRouter4DRender
       .New(
         Router4DHistory
+          .addCacheHistory(initialRoute)
           .GetHistory(
             TPersistentClass(T)
               .ClassName
