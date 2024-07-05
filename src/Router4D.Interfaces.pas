@@ -42,9 +42,11 @@ type
     ['{3C80F86A-D6B8-470C-A30E-A82E620F6F1D}']
     {$IFDEF HAS_FMX}
     function &To ( aPatch : String; aComponent : TFMXObject ) : iRouter4DLink; overload;
+    function &To ( aPatch : String; aProps : TProps; aComponent : TFMXObject ) : iRouter4DLink; overload;
     function Animation ( aAnimation : TProc<TFMXObject> ) : iRouter4DLink;
     {$ELSE}
     function &To ( aPatch : String; aComponent : TPanel ) : iRouter4DLink; overload;
+    function &To ( aPatch : String; aProps : TProps; aComponent : TPanel ) : iRouter4DLink; overload;
     function Animation ( aAnimation : TProc<TPanel> ) : iRouter4DLink;
     {$ENDIF}
     function &To ( aPatch : String) : iRouter4DLink; overload;

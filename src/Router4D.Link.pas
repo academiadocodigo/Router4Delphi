@@ -31,9 +31,11 @@ type
     {$IFDEF HAS_FMX}
     function Animation ( aAnimation : TProc<TFMXObject> ) : iRouter4DLink;
     function &To ( aPatch : String; aComponent : TFMXObject ) : iRouter4DLink; overload;
+    function &To ( aPatch : String; aProps: TProps; aComponent : TFMXObject ) : iRouter4DLink; overload;
     {$ELSE}
     function Animation ( aAnimation : TProc<TPanel> ) : iRouter4DLink;
     function &To ( aPatch : String; aComponent : TPanel ) : iRouter4DLink; overload;
+    function &To ( aPatch : String;  aProps : TProps; aComponent : TPanel ) : iRouter4DLink; overload;
     {$ENDIF}
     function &To ( aPatch : String) : iRouter4DLink; overload;
     function &To ( aPatch : String; aProps : TProps; aKey : String = '') : iRouter4DLink; overload;
@@ -72,6 +74,22 @@ begin
         .Render
     );
 end;
+
+function TRouter4DLink.&To( aPatch : String; aProps: TProps; aComponent : TFMXObject ) : iRouter4DLink;
+begin
+  Result := Self;
+  aComponent.RemoveObject(0);
+  Router4DHistory.InstanteObject.UnRender;
+  aComponent
+    .AddObject(
+      Router4DHistory
+        .addCacheHistory(aPatch)
+        .GetHistory(aPatch)
+        .Render
+    );
+	
+  GlobalEventBus.Post(aProps);
+end;
 {$ELSE}
 function TRouter4DLink.Animation(aAnimation: TProc<TPanel>): iRouter4DLink;
 begin
@@ -91,6 +109,22 @@ begin
         .GetHistory(aPatch)
         .Render
     );
+end;
+
+function TRouter4DLink.&To( aPatch : String; aProps: TProps; aComponent : TPanel ) : iRouter4DLink;
+begin
+  Result := Self;
+  aComponent.RemoveObject;
+  Router4DHistory.InstanteObject.UnRender;
+  aComponent
+    .AddObject(
+      Router4DHistory
+        .addCacheHistory(aPatch)
+        .GetHistory(aPatch)
+        .Render
+    );
+	
+  GlobalEventBus.Post(aProps);
 end;
 {$ENDIF}
 
