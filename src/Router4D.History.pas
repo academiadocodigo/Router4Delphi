@@ -76,6 +76,8 @@ type
       function BreadCrumb(aDelimiter: char = '/') : String;
       function addCacheHistory(aKey : String) : TRouter4DHistory;
       function IndexCache : Integer;
+      function GetRouter : String;
+      function PreviousRouter : String;
   end;
 
 var
@@ -133,6 +135,11 @@ begin
   Result := FMainRouter;
 end;
 
+function TRouter4DHistory.PreviousRouter: String;
+begin
+  Result := Self.FListCacheOrder[Self.FIndexCache - 1];
+end;
+
 function TRouter4DHistory.IndexRouter(aValue: TPanel): TRouter4DHistory;
 begin
   Result := Self;
@@ -156,6 +163,11 @@ end;
 function TRouter4DHistory.GetHistoryContainer(aKey: String): TPanel;
 begin
   FListCacheContainer.TryGetValue(aKey, Result);
+end;
+
+function TRouter4DHistory.GetRouter: String;
+begin
+  Result := Self.FListCacheOrder[Self.FIndexCache];
 end;
 
 {$ENDIF}
