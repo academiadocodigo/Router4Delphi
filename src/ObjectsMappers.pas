@@ -1186,7 +1186,7 @@ begin
               var tm: Int64;
               tm := Round(TimeStampToMsecs(ts));
               JSONObject.AddPair(f, TJSONNumber.Create(tm));
-            {$ELSE}}
+            {$ELSE}
               JSONObject.AddPair(f, TJSONNumber.Create(TimeStampToMsecs(ts)));
             {$ENDIF}            
           end;
