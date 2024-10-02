@@ -123,6 +123,16 @@ function TRouter4DHistory.GetHistoryContainer(aKey: String): TFMXObject;
 begin
   FListCacheContainer.TryGetValue(aKey, Result);
 end;
+
+function TRouter4DHistory.PreviousRouter: String;
+begin
+  Result := Self.FListCacheOrder[Self.FIndexCache - 1];
+end;
+
+function TRouter4DHistory.GetRouter: String;
+begin
+  Result := Self.FListCacheOrder[Self.FIndexCache];
+end;
 {$ELSE}
 function TRouter4DHistory.MainRouter(aValue: TPanel): TRouter4DHistory;
 begin
@@ -133,11 +143,6 @@ end;
 function TRouter4DHistory.MainRouter: TPanel;
 begin
   Result := FMainRouter;
-end;
-
-function TRouter4DHistory.PreviousRouter: String;
-begin
-  Result := Self.FListCacheOrder[Self.FIndexCache - 1];
 end;
 
 function TRouter4DHistory.IndexRouter(aValue: TPanel): TRouter4DHistory;
@@ -163,11 +168,6 @@ end;
 function TRouter4DHistory.GetHistoryContainer(aKey: String): TPanel;
 begin
   FListCacheContainer.TryGetValue(aKey, Result);
-end;
-
-function TRouter4DHistory.GetRouter: String;
-begin
-  Result := Self.FListCacheOrder[Self.FIndexCache];
 end;
 
 {$ENDIF}
