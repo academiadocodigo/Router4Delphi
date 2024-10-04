@@ -56,6 +56,8 @@ type
       function IndexRouter : TFMXObject; overload;
       function AddHistoryConteiner ( aKey : String; aObject : TFMXObject) : TRouter4DHistory; overload;
       function GetHistoryContainer ( aKey : String ) : TFMXObject;
+      function GetRouter : String;
+      function PreviousRouter : String;      
       {$ELSE}
       function MainRouter ( aValue : TPanel ) : TRouter4DHistory; overload;
       function MainRouter : TPanel; overload;
@@ -76,8 +78,6 @@ type
       function BreadCrumb(aDelimiter: char = '/') : String;
       function addCacheHistory(aKey : String) : TRouter4DHistory;
       function IndexCache : Integer;
-      function GetRouter : String;
-      function PreviousRouter : String;
   end;
 
 var
