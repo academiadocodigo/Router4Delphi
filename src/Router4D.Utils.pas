@@ -53,7 +53,13 @@ begin
       try
         GlobalEventBus.RegisterSubscriber(AValue.AsType<TObject>);
       except
-
+        on E: Exception do
+        begin
+          {$IFDEF DEBUG}{$IFDEF MSWINDOWS}
+          OutputDebugString(PChar(
+            'Router4D: Failed to register subscriber: ' + E.Message));
+          {$ENDIF}{$ENDIF}
+        end;
       end;
 
       Exit;

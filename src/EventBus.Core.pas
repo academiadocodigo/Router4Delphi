@@ -195,7 +195,12 @@ begin
           continue;
 
         LEvent := CloneEvent(AEvent);
-        PostToSubscription(LSubscription, LEvent, LIsMainThread);
+        try
+          PostToSubscription(LSubscription, LEvent, LIsMainThread);
+        except
+          LEvent.Free;
+          raise;
+        end;
       end;
     finally
       if (AEventOwner and Assigned(AEvent)) then

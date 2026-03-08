@@ -56,7 +56,7 @@ begin
   if aIndexComponent <> nil then
     Router4DHistory.IndexRouter(aIndexComponent);
 
-  if Assigned(FParent) then
+  if Assigned(FParent) and Assigned(FParent.Render) then
   begin
     aComponent.RemoveObject(0);
     aComponent.AddObject(FParent.Render);
@@ -71,7 +71,7 @@ begin
   if aIndexComponent <> nil then
     Router4DHistory.IndexRouter(aIndexComponent);
 
-  if Assigned(FParent) then
+  if Assigned(FParent) and Assigned(FParent.Render) then
   begin
     aComponent.RemoveObject;
     aComponent.AddObject(FParent.Render);

@@ -121,16 +121,22 @@ end;
 
 function TRouter4DHistory.GetHistoryContainer(aKey: String): TFMXObject;
 begin
-  FListCacheContainer.TryGetValue(aKey, Result);
+  Result := nil;
+  if not FListCacheContainer.TryGetValue(aKey, Result) then
+    raise Exception.CreateFmt('Container not found: %s', [aKey]);
 end;
 
 function TRouter4DHistory.PreviousRouter: String;
 begin
+  if (FIndexCache <= 0) or (FIndexCache > FListCacheOrder.Count) then
+    raise Exception.Create('No previous route in history');
   Result := Self.FListCacheOrder[Self.FIndexCache - 1];
 end;
 
 function TRouter4DHistory.GetRouter: String;
 begin
+  if (FIndexCache < 0) or (FIndexCache >= FListCacheOrder.Count) then
+    raise Exception.Create('No active route in history');
   Result := Self.FListCacheOrder[Self.FIndexCache];
 end;
 {$ELSE}
@@ -167,7 +173,9 @@ end;
 
 function TRouter4DHistory.GetHistoryContainer(aKey: String): TPanel;
 begin
-  FListCacheContainer.TryGetValue(aKey, Result);
+  Result := nil;
+  if not FListCacheContainer.TryGetValue(aKey, Result) then
+    raise Exception.CreateFmt('Container not found: %s', [aKey]);
 end;
 
 {$ENDIF}
@@ -179,19 +187,26 @@ end;
 
 function TRouter4DHistory.BreadCrumb(aDelimiter: char): String;
 var
-  i : integer;
+  I: Integer;
+  LSB: TStringBuilder;
 begin
   Result := '';
 
- if Self.FIndexCache = -1 then
+  if (FIndexCache < 0) or (FIndexCache >= FListCacheOrder.Count) then
     Exit;
 
- Result := Self.FListCacheOrder[Self.FIndexCache];
-
- for i := Self.FIndexCache-1 downto 0 do
- begin
-    Result := Self.FListCacheOrder[i] + ADelimiter + Result;
- end;
+  LSB := TStringBuilder.Create;
+  try
+    for I := 0 to FIndexCache do
+    begin
+      if LSB.Length > 0 then
+        LSB.Append(aDelimiter);
+      LSB.Append(FListCacheOrder[I]);
+    end;
+    Result := LSB.ToString;
+  finally
+    LSB.Free;
+  end;
 end;
 
 function TRouter4DHistory.GoBack: String;
@@ -199,26 +214,40 @@ begin
   if Self.FIndexCache > 0 then
     Dec(Self.FIndexCache);
 
- Result := Self.FListCacheOrder[Self.FIndexCache];
+  if (FIndexCache < 0) or (FIndexCache >= FListCacheOrder.Count) then
+    raise Exception.Create('No route in history to go back to');
+  Result := Self.FListCacheOrder[Self.FIndexCache];
 end;
 
 function TRouter4DHistory.AddHistory( aKey : String; aObject : TObject ) : iRouter4DComponent;
 var
-  mKey : String;
   vObject : TObject;
 begin
   if not Supports(aObject, iRouter4DComponent, Result) then
     raise Exception.Create('Form not Implement iRouter4DelphiComponent Interface');
 
-  try GlobalEventBus.RegisterSubscriber(aObject); except end;
-
-  if FListCache.Count > MAX_FRAME_COUNT then
-    for mKey in FListCache.Keys do
+  try
+    GlobalEventBus.RegisterSubscriber(aObject);
+  except
+    on E: Exception do
     begin
-      FListCache.Remove(mKey);
-      Break;
+      {$IFDEF DEBUG}{$IFDEF MSWINDOWS}
+      OutputDebugString(PChar(
+        'Router4D: Failed to register subscriber ' + aObject.ClassName + ': ' + E.Message));
+      {$ENDIF}{$ENDIF}
     end;
+  end;
 
+  while FListCache.Count > MAX_FRAME_COUNT do
+  begin
+    if FListCacheOrder.Count > 0 then
+    begin
+      FListCache.Remove(FListCacheOrder[0]);
+      FListCacheOrder.Delete(0);
+    end
+    else
+      Break;
+  end;
 
   if not FListCache.TryGetValue(aKey, vObject) then
     FListCache.Add(aKey, aObject);
@@ -275,7 +304,8 @@ begin
   FListCache :=  TObjectDictionary<String, TObject>.Create;
   FListCache2 := TDictionary<String, TCachePersistent>.Create;
   FListCacheOrder := TList<String>.Create;
-  FMaxCacheHistory := 10;
+  FMaxCacheHistory := MAX_FRAME_COUNT;
+  FIndexCache := -1;
   {$IFDEF HAS_FMX}
   FListCacheContainer := TObjectDictionary<String, TFMXObject>.Create;
   {$ELSE}

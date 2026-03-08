@@ -118,7 +118,12 @@ begin
     .AnonProc2NotifyEvent(
       aListBox,
       procedure(Sender: TObject; Aux : String)
+      var
+        LListBox: TListBox;
       begin
+        LListBox := Sender as TListBox;
+        if LListBox.ItemIndex < 0 then
+          Exit;
         TRouter4D
         .Link
           .Animation(
@@ -128,7 +133,7 @@ begin
               TLayout(aObject).AnimateFloat('Opacity', 1, 0.2);
             end)
           .&To(
-            (Sender as TListBox).Items[(Sender as TListBox).ItemIndex],
+            LListBox.Items[LListBox.ItemIndex],
             Aux
           )
       end,

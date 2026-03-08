@@ -65,7 +65,8 @@ function TRouter4DLink.&To( aPatch : String; aComponent : TFMXObject ) : iRouter
 begin
   Result := Self;
   aComponent.RemoveObject(0);
-  Router4DHistory.InstanteObject.UnRender;
+  if Assigned(Router4DHistory.InstanteObject) then
+    Router4DHistory.InstanteObject.UnRender;
   aComponent
     .AddObject(
       Router4DHistory
@@ -79,7 +80,8 @@ function TRouter4DLink.&To( aPatch : String; aProps: TProps; aComponent : TFMXOb
 begin
   Result := Self;
   aComponent.RemoveObject(0);
-  Router4DHistory.InstanteObject.UnRender;
+  if Assigned(Router4DHistory.InstanteObject) then
+    Router4DHistory.InstanteObject.UnRender;
   aComponent
     .AddObject(
       Router4DHistory
@@ -101,7 +103,8 @@ function TRouter4DLink.&To( aPatch : String; aComponent : TPanel ) : iRouter4DLi
 begin
   Result := Self;
   aComponent.RemoveObject;
-  Router4DHistory.InstanteObject.UnRender;
+  if Assigned(Router4DHistory.InstanteObject) then
+    Router4DHistory.InstanteObject.UnRender;
   aComponent
     .AddObject(
       Router4DHistory
@@ -115,7 +118,8 @@ function TRouter4DLink.&To( aPatch : String; aProps: TProps; aComponent : TPanel
 begin
   Result := Self;
   aComponent.RemoveObject;
-  Router4DHistory.InstanteObject.UnRender;
+  if Assigned(Router4DHistory.InstanteObject) then
+    Router4DHistory.InstanteObject.UnRender;
   aComponent
     .AddObject(
       Router4DHistory
@@ -137,7 +141,8 @@ var
   {$ENDIF}
 begin
   Result := Self;
-  Router4DHistory.InstanteObject.UnRender;
+  if Assigned(Router4DHistory.InstanteObject) then
+    Router4DHistory.InstanteObject.UnRender;
   aContainer := Router4DHistory.GetHistoryContainer(aNameContainer);
   {$IFDEF HAS_FMX}
   aContainer.RemoveObject(0);
@@ -177,7 +182,8 @@ begin
   {$ELSE}
   Router4DHistory.MainRouter.RemoveObject;
   {$ENDIF}
-  Router4DHistory.InstanteObject.UnRender;
+  if Assigned(Router4DHistory.InstanteObject) then
+    Router4DHistory.InstanteObject.UnRender;
   Router4DHistory
   .MainRouter
     .AddObject(
@@ -197,7 +203,8 @@ begin
   {$ELSE}
   Router4DHistory.IndexRouter.RemoveObject;
   {$ENDIF}
-  Router4DHistory.InstanteObject.UnRender;
+  if Assigned(Router4DHistory.InstanteObject) then
+    Router4DHistory.InstanteObject.UnRender;
   Router4DHistory
   .IndexRouter
     .AddObject(
@@ -219,7 +226,8 @@ begin
   {$ELSE}
   Router4DHistory.MainRouter.RemoveObject;
   {$ENDIF}
-  Router4DHistory.InstanteObject.UnRender;
+  if Assigned(Router4DHistory.InstanteObject) then
+    Router4DHistory.InstanteObject.UnRender;
   Router4DHistory
   .MainRouter
     .AddObject(
@@ -242,7 +250,8 @@ begin
   {$ELSE}
   Router4DHistory.MainRouter.RemoveObject;
   {$ENDIF}
-  Router4DHistory.InstanteObject.UnRender;
+  if Assigned(Router4DHistory.InstanteObject) then
+    Router4DHistory.InstanteObject.UnRender;
   Router4DHistory
   .MainRouter
     .AddObject(
